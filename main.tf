@@ -29,7 +29,7 @@ resource "aws_key_pair" "nodes" {
 }
 
 resource "aws_security_group" "nodes" {
-  name   = "rancher-nodes"
+  name   = "big-1-6-rancher-nodes"
   vpc_id = "${data.aws_vpc.default.id}"
 
   ingress = {
