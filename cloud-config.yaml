@@ -1,0 +1,14 @@
+#cloud-config
+rancher:
+  resize_device: /dev/nvme0n1
+write_files:
+- path: /home/rancher/.ssh/id_rsa
+  encoding: b64
+  permissions: "0600"
+  owner: rancher:rancher
+  content: ${id_rsa}
+- path: /home/rancher/.ssh/id_rsa.pub
+  encoding: b64
+  permissions: "0644"
+  owner: rancher:rancher
+  content: ${id_rsa_pub}

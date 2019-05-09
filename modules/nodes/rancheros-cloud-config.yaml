@@ -1,0 +1,15 @@
+#cloud-config
+rancher:
+  resize_device: /dev/nvme0n1
+  docker:
+    engine: docker-17.09.1-ce
+write_files:
+- path: /etc/rc.local
+  permissions: "0755"
+  owner: root:root
+  content: |
+    #!/bin/bash
+    ip=$(ip addr show dev eth0 | grep "inet " | sed -r 's/.*inet (.*)\/.*/\1/')
+    wait-for-docker && \
+    docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher -e CATTLE_AGENT_IP=$ip ${image} ${url} && \
+    rm -f /etc/rc.local
