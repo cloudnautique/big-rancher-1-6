@@ -68,6 +68,19 @@ resource "aws_autoscaling_group" "nodes" {
   }
 
   vpc_zone_identifier = ["${var.subnets}"]
+
+  tags = [
+    {
+      key                 = "DoNotDelete"
+      value               = "True"
+      propagate_at_launch = false
+    },
+    {
+      key                 = "Owner"
+      value               = "QATesting"
+      propagate_at_launch = false
+    },
+  ]
 }
 
 # Profit?
